@@ -22,21 +22,21 @@ Please whenever copying code, reference it and put the example file in it's due 
 We are going to use the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html).
 
 Below some remarks :
-1 . Semicolons :
+1. Semicolons :
 ⋅⋅* Do not terminate your lines with semi-colons and do not use semi-colons to put two commands on the same line.
-2 . Line Length
+2. Line Length
 ⋅⋅* Maximum line length is 80 characters.
-3 . Indentation
+3. Indentation
 ..* Indent your code blocks with 4 spaces. (Don't mix it with tabs)
-4 . Blank Lines
+4. Blank Lines
 ..* Two blank lines between top-level definitions, one blank line between method definitions.
-5 . TODO Comments
+5. TODO Comments
 ..* Use TODO comments for code that is temporary, a short-term solution, or good-enough but not perfect.
-6 . Statements
+6. Statements
 ..* Generally only one statement per line.
-7 . Naming
+7. Naming
 ..* module_name, package_name, ClassName, method_name, ExceptionName, function_name, GLOBAL_CONSTANT_NAME, global_var_name, instance_var_name, function_parameter_name, local_var_name.
-8 . Arithmetic
+8. Arithmetic
 ..* Use spaces around all their arithmetic operators
 
 To check code standarts were a going to use the [Pylint](https://www.pylint.org/).
