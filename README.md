@@ -10,8 +10,8 @@ Below a list of all softwares:
 - [OpenCV 3.2.0](https://github.com/opencv/opencv)
 
 Below a list of all services used and APIs:
-- [GitHub] (http://www.github.com)
-- [Google Cloud Vision API] (https://cloud.google.com/vision/)
+- [GitHub](http://www.github.com)
+- [Google Cloud Vision API](https://cloud.google.com/vision/)
 - [Google Cloud Translation API](https://cloud.google.com/translate/)
 
 # Help and Tutorial
