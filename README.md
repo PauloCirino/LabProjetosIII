@@ -1,11 +1,11 @@
 # LabProjetosIII
-A repository with a Projects Lab's Class from UFMG(Universidade Federal de Minas Gerais)
+A repository for the Projects Labs Class from the UFMG(Universidade Federal de Minas Gerais).
 
 # Software
 In the makings of this project, we are only using either free or open source software, and we are also using publicly available api
 
 Below a list of all softwares:
-- [Virtual Box](https://www.virtualbox.org/)
+- [Virtual Box 5.1.16](https://www.virtualbox.org/)
 - [PyCharm Community 2016.3.2.0](https://www.jetbrains.com/pycharm/download/)
 - [OpenCV 3.2.0](https://github.com/opencv/opencv)
 
