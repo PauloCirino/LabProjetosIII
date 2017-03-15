@@ -5,14 +5,13 @@ A repository for the Projects Labs Class from the UFMG(Universidade Federal de M
 In the makings of this project, we are only using either free or open source software, and we are also using publicly available api
 
 Below a list of all softwares:
-- [Virtual Box 5.1.16](https://www.virtualbox.org/)
+- [Python 2.7](https://www.python.org/)
 - [PyCharm Community 2016.3.2.0](https://www.jetbrains.com/pycharm/download/)
 - [OpenCV 3.2.0](https://github.com/opencv/opencv)
+- [Anaconda Python](https://www.continuum.io/downloads)
 
 Below a list of all services used and APIs:
 - [GitHub](http://www.github.com)
-- [Google Cloud Vision API](https://cloud.google.com/vision/)
-- [Google Cloud Translation API](https://cloud.google.com/translate/)
 
 # Help and Tutorial
 A folder was created where we are going to store minimal examples of each software and service we are going to use.
@@ -35,9 +34,7 @@ Below some remarks:
 To check code standarts were a going to use the [Pylint](https://www.pylint.org/).
 
 # Environment
-As one common environment we are going to use a [Ubuntu 16.04.2 LTS](https://www.ubuntu.com/download/desktop) Virtual Machine.
-
-The instructions are down bellow, and the OS image is already configured, and with all softwares and keys already installed.
+TODO
 
 # Documentation
 Code documentation needs to be self suficient.
@@ -45,9 +42,4 @@ Code documentation needs to be self suficient.
 All other documentation is to be made in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
 # Setting Up
-1. Download [VirtualBox](https://www.virtualbox.org/wiki/Downloads) for your particular OS
-2. Download Virtual Machine Image
-3. Enter the Virtual Machine (user: LabIII password: profAdorno5)
-4. Go to ~/LabProjetosIII
-5. run $git fetch
-6. Start Working
+TODO
