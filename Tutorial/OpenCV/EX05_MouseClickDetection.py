@@ -48,6 +48,7 @@ def draw_click(event, x, y, flags, param):
 
     if event == cv2.EVENT_LBUTTONUP:
         global click_down_point_center
+        print '(x, y) = ' + str(click_down_point_center)
         click_down_point_center = (x, y)
 
 
@@ -75,6 +76,7 @@ def main():
 
         global click_down_point_center
         write_point(frame = frame, center_param = click_down_point_center, color_param = (0, 255, 0))
+        
         print_mouse_position_center(frame = frame)
 
 		# prints frames per second
