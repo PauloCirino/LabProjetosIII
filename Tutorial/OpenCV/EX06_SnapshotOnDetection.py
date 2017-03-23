@@ -2,6 +2,7 @@
 import cv2
 import time
 import sys
+import os
 
 click_up_point_center = (-100, -100)
 click_down_point_center = (-100, -100)
@@ -52,12 +53,17 @@ def draw_click(event, x, y, flags, param):
         print '(x, y) = ' + str(click_down_point_center)
         click_down_point_center = (x, y)
 
+def check_create_dir(dir_name):
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
 
 
 def main(cascPath):
 
     print 'Click somewhere on the screen'
     print 'Press \'q\' to Exit'
+
+    check_create_dir('./snapShots')
 
     faceCascade = cv2.CascadeClassifier(cascPath)
     video_capture = cv2.VideoCapture(0)
@@ -97,7 +103,7 @@ def main(cascPath):
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-            if (time.time() - last_pic_time) > 2 :
+            if (time.time() - last_pic_time) > 0.3 :
                 print 'Saving Snapshot'
                 last_pic_time = time.time()
                 pic_name = './snapShots/face_' + str(last_pic_time) + '.png'
