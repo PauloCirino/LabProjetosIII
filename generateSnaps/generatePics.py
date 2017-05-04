@@ -4,6 +4,9 @@ import time
 import sys
 import os
 
+time_between_pics = 0.25
+VAR_FOLGA_X = 25
+VAR_FOLGA_Y = 60
 click_up_point_center = (-100, -100)
 click_down_point_center = (-100, -100)
 
@@ -25,45 +28,31 @@ def print_fps(frame, last_time, frame_count, frame_rate):
         return last_time, frame_count, frame_rate
 
 
-def print_mouse_position_center(frame):
-    global mouse_current_position_centert
-    cv2.putText(img = frame, text = '(x, y) = ' + str(mouse_current_position_centert),
-                org = (5, 20),
-                fontFace = cv2.FONT_HERSHEY_PLAIN,
-                fontScale = 1, color = (255,255,255), thickness = 1)
+def get_face_frame(original_frame, x, y, w, h, var_folga_x, var_folga_y):
+    print original_frame.shape
+
+    newYMax = original_frame.shape[0]
+    newXMax = original_frame.shape[1]
+    newXMin = 0
+    newYMin = 0
+
+    if x - var_folga_x > 0 :
+        newXMin = x - var_folga_x
+    if x + w + var_folga_x < newXMax :
+        newXMax = x + w
+
+    if y - var_folga_y > 0 :
+        newYMin = y - var_folga_y
+    if y + h + var_folga_y < newYMax :
+        newYMax = y + h 
+
+    frame = original_frame[range(newYMin, newYMax), :] [:, range(newXMin, newXMax)] 
+    return frame
 
 
-def write_point(frame, center_param, color_param = (0, 255, 0)):
-    cv2.circle(img = frame, center = center_param, radius = 5,
-               color = color_param, thickness = 10)
+def main(cascPath, snapDir, personName):
 
-    cv2.putText(img = frame, text = str(center_param),
-                org = (center_param[0] - 20, center_param[1] - 20),
-                fontFace = cv2.FONT_HERSHEY_PLAIN,
-                fontScale = 1, color = color_param, thickness = 1)
-
- 
-def draw_click(event, x, y, flags, param):
-    if event == cv2.EVENT_MOUSEMOVE:
-        global mouse_current_position_centert
-        mouse_current_position_centert = (x, y)
-
-    if event == cv2.EVENT_LBUTTONUP:
-        global click_down_point_center
-        print '(x, y) = ' + str(click_down_point_center)
-        click_down_point_center = (x, y)
-
-def check_create_dir(dir_name):
-    if not os.path.exists(dir_name):
-        os.makedirs(dir_name)
-
-
-def main(cascPath, personName):
-
-    print 'Click somewhere on the screen'
     print 'Press \'q\' to Exit'
-
-    check_create_dir('./snapShots')
 
     faceCascade = cv2.CascadeClassifier(cascPath)
     video_capture = cv2.VideoCapture(0)
@@ -72,22 +61,17 @@ def main(cascPath, personName):
     video_capture.set(4, 640)
 
     last_pic_time = time.time()
+    last_pic_num = 0
 
     last_time = time.time()
     frame_count = 0
     frame_rate = 0 
 
     cv2.namedWindow('image')
-    cv2.setMouseCallback('image', draw_click)
 	 
 	# keep looping until the 'q' key is pressed
     while True:
         ret, frame = video_capture.read()
-
-        global click_down_point_center
-        write_point(frame = frame, center_param = click_down_point_center, color_param = (0, 255, 0))
-        
-        print_mouse_position_center(frame = frame)
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -103,11 +87,13 @@ def main(cascPath, personName):
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-            if (time.time() - last_pic_time) > 0.3 :
+            if (time.time() - last_pic_time) > time_between_pics :
                 print 'Saving Snapshot'
                 last_pic_time = time.time()
-                pic_name = './snapShots/face_' + str(last_pic_time) + '.png'
-                frame2 = gray [range(y, y + h), :] [:, range(x, x + w)] 
+                last_pic_num += 1
+                pic_name = os.path.join(snapDir, personName + str(last_pic_num) + '.png')
+                frame2 = get_face_frame(gray, x, y, w, h, VAR_FOLGA_X, VAR_FOLGA_Y)
+                print 'frame2 shape = ' + str(frame2.shape)
                 cv2.imwrite(pic_name, frame2)
 
 		# prints frames per second
@@ -127,4 +113,18 @@ def main(cascPath, personName):
 
 if __name__ == "__main__":
     cascPath = sys.argv[1]
-    main(cascPath)
+    snapDir = sys.argv[2] 
+    personName = sys.argv[3]
+
+    try:
+        os.stat(snapDir)
+    except:
+        os.mkdir(snapDir) 
+
+    snapDir = os.path.join(snapDir, personName)
+    try:
+        os.stat(snapDir)
+    except:
+        os.mkdir(snapDir) 
+
+    main(cascPath, snapDir, personName)
